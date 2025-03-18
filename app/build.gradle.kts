@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "kz.kanat.studentapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "kz.kanat.studentapp"
