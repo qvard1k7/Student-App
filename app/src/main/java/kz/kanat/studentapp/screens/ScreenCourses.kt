@@ -1,16 +1,12 @@
 package kz.kanat.studentapp.screens
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -28,8 +24,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,7 +31,7 @@ import androidx.navigation.NavController
 import kz.kanat.studentapp.ui.theme.StudentAppTheme
 
 @Composable
-fun ProfileScreen(navController: NavController) {
+fun ScreenCourses(navController: NavController) {
     StudentAppTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -51,15 +45,11 @@ fun ProfileScreen(navController: NavController) {
 @Composable
 fun CoursesScreen() {
     val courses = listOf(
-        "Digital Marketing",
-        "Design Learning",
-        "Artificial Intelligence",
-        "Software Management",
-        "Digital Logical Thoughts",
-        "Web 3.0",
-        "Calculus",
-        "Physics",
-        "Mathematics"
+        "Работать со стандартными сервисами платформы",
+        "Владеть сведениями об основных отраслях права",
+        "Использовать технологии работы с базами данных",
+        "Тестировать мобильные приложения",
+        "Совершенствовать физические качества и психофизиологические способности",
     )
 
     var searchQuery by remember { mutableStateOf("") }
@@ -73,7 +63,7 @@ fun CoursesScreen() {
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(
-            text = "Courses",
+            text = "Курсы",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -84,7 +74,7 @@ fun CoursesScreen() {
         OutlinedTextField(
             value = searchQuery,
             onValueChange = { searchQuery = it },
-            placeholder = { Text("Search") },
+            placeholder = { Text("Поиск") },
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(12.dp)),
@@ -108,7 +98,7 @@ fun CourseItem(courseName: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(50.dp),
+            .height(70.dp),
         shape = RoundedCornerShape(10.dp),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
@@ -119,8 +109,7 @@ fun CourseItem(courseName: String) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = courseName, fontSize = 16.sp)
-            Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = "Go")
+            Text(modifier = Modifier.padding(4.dp), text = courseName, fontSize = 16.sp)
         }
     }
 }

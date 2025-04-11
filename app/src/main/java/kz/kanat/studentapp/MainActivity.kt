@@ -9,9 +9,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.BottomAppBar
@@ -36,7 +38,9 @@ import androidx.navigation.compose.rememberNavController
 import kz.kanat.studentapp.screens.HomeScreen
 import kz.kanat.studentapp.screens.ProfileScreen
 import kz.kanat.studentapp.screens.ScheduleScreen
-import kz.kanat.studentapp.screens.SearchScreen
+import kz.kanat.studentapp.screens.ScreenCourses
+import kz.kanat.studentapp.screens.ScreenProfile
+import kz.kanat.studentapp.screens.ScreenSchedule
 import kz.kanat.studentapp.ui.theme.StudentAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -99,13 +103,18 @@ fun BottomNavigationBar() {
                     navController
                 )
             }
-            composable(Screens.Search.route) {
-                SearchScreen(
+            composable(Screens.Courses.route) {
+                ScreenCourses(
+                    navController
+                )
+            }
+            composable(Screens.Schedule.route) {
+                ScreenSchedule(
                     navController
                 )
             }
             composable(Screens.Profile.route) {
-                ScheduleScreen(
+                ScreenProfile(
                     navController
                 )
             }
@@ -121,17 +130,22 @@ data class BottomNavigationItem(
     fun bottomNavigationItems() : List<BottomNavigationItem> {
         return listOf(
             BottomNavigationItem(
-                label = "Home",
+                label = "Главная",
                 icon = Icons.Filled.Home,
                 route = Screens.Home.route
             ),
             BottomNavigationItem(
-                label = "Search",
-                icon = Icons.Filled.Search,
-                route = Screens.Search.route
+                label = "Курсы",
+                icon = Icons.Filled.Info,
+                route = Screens.Courses.route
             ),
             BottomNavigationItem(
-                label = "Profile",
+                label = "Расписание",
+                icon = Icons.Filled.DateRange,
+                route = Screens.Schedule.route
+            ),
+            BottomNavigationItem(
+                label = "Профиль",
                 icon = Icons.Filled.AccountCircle,
                 route = Screens.Profile.route
             ),
@@ -141,6 +155,7 @@ data class BottomNavigationItem(
 
 sealed class Screens(val route : String) {
     object Home : Screens("home_screen")
-    object Search : Screens("search_screen")
+    object Schedule : Screens("schedule_screen")
+    object Courses : Screens("courses_screen")
     object Profile : Screens("profile_screen")
 }

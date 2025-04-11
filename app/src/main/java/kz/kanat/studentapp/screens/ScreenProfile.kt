@@ -45,7 +45,7 @@ import kz.kanat.studentapp.R
 import kz.kanat.studentapp.ui.theme.StudentAppTheme
 
 @Composable
-fun ScheduleScreen(navController: NavController) {
+fun ScreenProfile(navController: NavController) {
     StudentAppTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -65,7 +65,7 @@ fun ProfileScreen() {
             .padding(16.dp)
     ) {
         Text(
-            text = "Profile",
+            text = "Профиль",
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
             modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -88,8 +88,8 @@ fun ProfileScreen() {
             )
             Spacer(modifier = Modifier.width(12.dp))
             Column {
-                Text("Ammar Ali", fontWeight = FontWeight.Bold, fontSize = 18.sp)
-                Text("SU92-BCSCM-S23-040", color = Color.Gray, fontSize = 14.sp)
+                Text("Канат Бариев", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                Text("4/21.44", color = Color.Gray, fontSize = 14.sp)
             }
         }
 
@@ -98,11 +98,10 @@ fun ProfileScreen() {
         // GPA and Credits
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            InfoBox(title = "Credit earns", value = "50/130")
-            InfoBox(title = "GPA", value = "3.02")
-            InfoBox(title = "Year student", value = "2")
+            InfoBox(title = "Оценка", value = "85%")
+            InfoBox(title = "Курс", value = "4")
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -118,45 +117,22 @@ fun ProfileScreen() {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Statistics", fontWeight = FontWeight.Bold, fontSize = 16.sp)
-                    Button(
-                        onClick = { },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50)),
-                        shape = RoundedCornerShape(12.dp),
-                        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp)
-                    ) {
-                        Text("Mark Attend", fontSize = 12.sp, color = Color.White)
-                    }
+                    Text("Статистика", fontWeight = FontWeight.Bold, fontSize = 16.sp)
                 }
 
-                Text("Monday, 06 June 2024", color = Color.Gray, fontSize = 12.sp)
+                Text("Вторник, 15 Апрель 2025", color = Color.Gray, fontSize = 12.sp)
 
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
-                    StatItem("Attendance", "90%")
-                    StatItem("Task & Work", "70%")
-                    StatItem("Quiz", "85%")
+                    StatItem("Посещаемость", "90%")
+                    StatItem("Задание", "70%")
+                    StatItem("Тестировние", "85%")
                 }
             }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
-
-        // Dashboard
-        Card(
-            shape = RoundedCornerShape(16.dp),
-            border = BorderStroke(1.dp, Color(0xFFEBEBEB)),
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Column(modifier = Modifier.padding(16.dp)) {
-                Text("Dashboard", fontWeight = FontWeight.Bold, fontSize = 16.sp)
-                Spacer(modifier = Modifier.height(12.dp))
-                DashboardItem(icon = Icons.Default.Settings, label = "Setting")
-                DashboardItem(icon = Icons.Default.Person, label = "Achievement")
-                DashboardItem(icon = Icons.Default.Lock, label = "Privacy")
-            }
-        }
     }
 }
 
@@ -167,7 +143,7 @@ fun InfoBox(title: String, value: String) {
             .width(100.dp)
             .clip(RoundedCornerShape(12.dp))
             .background(Color(0xFFF3E8FF))
-            .padding(8.dp),
+            .padding(top = 8.dp, bottom = 8.dp, start = 8.dp, end = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(value, fontWeight = FontWeight.Bold, fontSize = 16.sp)

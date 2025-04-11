@@ -3,6 +3,7 @@ package kz.kanat.studentapp.screens
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -34,6 +35,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import kz.kanat.studentapp.Screens
 import kz.kanat.studentapp.ui.theme.Pink40
 import kz.kanat.studentapp.ui.theme.Purple40
 import kz.kanat.studentapp.ui.theme.Purple80
@@ -55,21 +58,30 @@ fun HomeScreen(navController: NavController) {
                 Row {
                     Text(
                         modifier = Modifier.weight(2f),
-                        text = "Today's Classes",
+                        text = "Сегодняшние занятия",
                         style = Typography.bodyLarge,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.W600
                     )
                     Row(
-                        modifier = Modifier.weight(1f),
-                        verticalAlignment = Alignment.CenterVertically
+                        modifier = Modifier.weight(1f).clickable {
+                            navController.navigate(Screens.Schedule.route) {
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        },
+                        verticalAlignment = Alignment.CenterVertically,
+
                     ) {
                         Text(
-                            text = "Open schedule",
+                            text = "Открыть расписание",
                             style = Typography.bodyMedium,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.W400,
-                            color = Pink40
+                            color = Pink40,
                         )
                         Icon(
                             imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
@@ -82,7 +94,7 @@ fun HomeScreen(navController: NavController) {
 
                 Spacer(Modifier.size(32.dp))
                 TodayClasses()
-
+                Spacer(Modifier.size(32.dp))
                 NewsTab()
             }
         }
@@ -102,7 +114,7 @@ fun TodayClasses() {
     ) {
         Column(Modifier.padding(16.dp)) {
             Text(
-                text = "Digital Thinking",
+                text = "Использовать технологии работы с базами данных",
                 style = Typography.bodyMedium,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.W400
@@ -119,7 +131,7 @@ fun TodayClasses() {
                 )
                 Text(
                     modifier = Modifier.padding(4.dp),
-                    text = "Main auditorium",
+                    text = "Корпус №2, №76 ауд",
                     style = Typography.bodyMedium,
                     fontSize = 10.sp,
                     fontWeight = FontWeight.W400,
@@ -129,7 +141,7 @@ fun TodayClasses() {
 
             Text(
                 modifier = Modifier.weight(2f),
-                text = "Mam Mahnoor",
+                text = "Ишутина И.Р",
                 style = Typography.bodyMedium,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.W400
@@ -142,7 +154,7 @@ fun TodayClasses() {
 fun NewsTab() {
     var tabIndex by remember { mutableStateOf(0) }
 
-    val tabs = listOf("News", "Events")
+    val tabs = listOf("Новости", "Ивенты")
 
     Column {
         TabRow(selectedTabIndex = tabIndex) {
@@ -181,6 +193,19 @@ fun NewsCard(
             .padding(vertical = 8.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
+
+            Box(
+                modifier = Modifier
+                    .background(dateBackgroundColor, shape = RoundedCornerShape(20.dp))
+                    .padding(horizontal = 12.dp, vertical = 4.dp)
+            ) {
+                Text(
+                    text = date,
+                    color = Color.White,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Medium
+                )
+            }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -191,18 +216,6 @@ fun NewsCard(
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp
                 )
-                Box(
-                    modifier = Modifier
-                        .background(dateBackgroundColor, shape = RoundedCornerShape(20.dp))
-                        .padding(horizontal = 12.dp, vertical = 4.dp)
-                ) {
-                    Text(
-                        text = date,
-                        color = Color.White,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Medium
-                    )
-                }
             }
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -220,15 +233,16 @@ fun NewsCard(
 fun NewsList() {
     val newsItems = listOf(
         NewsItem(
-            title = "FBISE",
-            description = "The Federal Board of Intermediate and Secondary Education (FBISE) has officially announced the date for the results of the Secondary School Certificate (SSC) Part I & II 1st Annual Examinations.",
-            date = "May 01",
+            title = "Международный день книгодарения",
+            description = "В Международный день книгодарения, 14 февраля, члены Атырауского еврейского этнокультурного объединения «Алия» сделали особенный подарок студентам нашего колледжа.\n" +
+                    "Директор колледжа Мухтаров М. Х. поприветствовал гостей от лица преподавателей и студентов. ",
+            date = "14.02.2025",
             dateBackgroundColor = Color(0xFFB39DDB) // Light Purple
         ),
         NewsItem(
-            title = "Gaza",
-            description = "The Pakistan Medical and Dental Council (PM&DC) has permitted medical/dental students from Gaza to complete their studies in Pakistan.",
-            date = "June 07",
+            title = "Технологиялық процестерді автоматтандыру және басқару",
+            description = "Колледжіміздің “Технологиялық процестерді автоматтандыру және басқару “ мамандығының 2 курс студенттері алғашқы оқу-өндірістік тәжірибелерін колледж қабырғасында өткізіп теориялық білімдерін практикада бекітті.",
+            date = "13.01.2025",
             dateBackgroundColor = Color(0xFF81C784) // Light Green
         )
         // Можно добавить больше новостей здесь
@@ -254,16 +268,16 @@ fun NewsList() {
 fun EventList() {
     val events = listOf(
         EventItem(
-            title = "IDP Study Abroad Expo",
-            location = "Islamabad",
-            date = "Wed, 28 Feb 2024",
-            imageRes = kz.kanat.studentapp.R.drawable.expo // замените на ваш ресурс
+            title = "Национальный чемпионат \"WorldSkills Kazakhstan-2025\"",
+            location = "ПСВК",
+            date = "Ноябрь 2025",
+            imageRes = kz.kanat.studentapp.R.drawable.word_class // замените на ваш ресурс
         ),
         EventItem(
-            title = "Pathways to Development Conference",
-            location = "Lahore",
-            date = "Fri, 19 Apr 2024",
-            imageRes = kz.kanat.studentapp.R.drawable.expo// замените на ваш ресурс
+            title = "Құқықбұзушылықтан алдын алу",
+            location = "ПСВК",
+            date = "Апрель 2025",
+            imageRes = kz.kanat.studentapp.R.drawable.image// замените на ваш ресурс
         )
     )
 
